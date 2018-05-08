@@ -67,9 +67,12 @@ public class SlipPageIntroView extends RelativeLayout {
         mAdapter = new ViewPagerAdapter();
         mViewPager.setAdapter(mAdapter);
 
-        mBtnNext.setOnClickListener(view -> {
-            if (null != onClickNextListener) {
-                onClickNextListener.onClick(view);
+        mBtnNext.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (null != onClickNextListener) {
+                    onClickNextListener.onClick(view);
+                }
             }
         });
     }

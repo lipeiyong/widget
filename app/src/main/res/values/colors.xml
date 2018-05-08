@@ -20,4 +20,13 @@
     <color name="graywhite">#F5F5F5</color>
     <color name="grayslate">#708090</color>
     <color name="lightblue">#0083FF</color>
+
+    <color name="text">#8f8f8f</color>
+    <color name="blue_text">#107ED3</color>
+
+    <color name="line">#c8c8c8</color>
+
+    <!--dialog-->
+    <color name="dialog_bg">#f9f9f9</color>
+    <color name="dialog_bg_pressed">#ebebeb</color>
 </resources>

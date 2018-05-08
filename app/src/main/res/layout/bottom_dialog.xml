@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal">
+
+    <RelativeLayout
+        android:id="@+id/rl_header"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/btm_dialog_on_border"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="标题"
+            android:textColor="@color/text"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/fgx"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/line" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_header"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/btm_dialog_under_border"
+        android:overScrollMode="never" />
+
+    <Button
+        android:id="@+id/btn_cancle"
+        android:layout_width="120dip"
+        android:layout_height="50dp"
+        android:layout_below="@+id/recyclerview"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/btm_dialog_cancel_selector"
+        android:text="取消"
+        android:textColor="@color/blue_text"
+        android:textSize="18sp" />
+
+</RelativeLayout>
