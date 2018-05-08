@@ -23,7 +23,7 @@ import java.util.List;
  * 项目名称 widget
  * 创建人 梧桐树
  * 创建时间  2018/5/8 15:20
- * 功能描述：
+ * 功能描述：底部dialog
  */
 
 public class BottomDialog extends Dialog {
