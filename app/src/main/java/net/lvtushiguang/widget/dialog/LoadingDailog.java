@@ -21,7 +21,7 @@ import net.lvtushiguang.widget.R;
 
 public class LoadingDailog extends Dialog {
     private boolean isTimeOut = false;
-    private long timeout = 0;
+    private long timeout = 10000;//单位毫秒
     private Handler mHandler = new Handler() {
     };
 
