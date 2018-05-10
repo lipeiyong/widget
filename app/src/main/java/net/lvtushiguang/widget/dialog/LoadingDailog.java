@@ -2,11 +2,12 @@ package net.lvtushiguang.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import net.lvtushiguang.widget.R;
@@ -20,98 +21,81 @@ import net.lvtushiguang.widget.R;
  */
 
 public class LoadingDailog extends Dialog {
-    private boolean isTimeOut = false;
-    private long timeout = 10000;//单位毫秒
+    private Context mContext;
+
+    private boolean isCancelable = true;
+    private boolean isCancelOutside = false;
+    private boolean isTimeOut = true;
+    private long timeout = 10000;
     private Handler mHandler = new Handler() {
     };
 
+    private TextView mMessage;
+    private String message;
+
     public LoadingDailog(@NonNull Context context) {
-        super(context);
+        this(context, R.style.LoadingDialogStyle);
     }
 
     public LoadingDailog(@NonNull Context context, int themeResId) {
         super(context, themeResId);
+        mContext = context;
     }
 
-    public LoadingDailog setTimeOut(long timeout) {
-        this.isTimeOut = true;
-        this.timeout = timeout;
-        return this;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        View view = inflater.inflate(R.layout.loading_dialog, null);
+        mMessage = view.findViewById(R.id.tipTextView);
+        if (TextUtils.isEmpty(message)) {
+            mMessage.setVisibility(View.GONE);
+        } else {
+            mMessage.setVisibility(View.VISIBLE);
+            mMessage.setText(message);
+        }
+
+        setCancelable(isCancelable);
+        setCanceledOnTouchOutside(isCancelOutside);
+        setContentView(view);
     }
 
     @Override
     public void show() {
         super.show();
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dismiss();
-            }
-        }, timeout);
+        if (isTimeOut)
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    dismiss();
+                }
+            }, timeout);
+    }
+
+    public void setTimeOutState(boolean state) {
+        isTimeOut = state;
+    }
+
+    public void setTimeOut(long timeout) {
+        this.timeout = timeout;
+    }
+
+    public void setMessage(String message) {
+        if (null == mMessage) {
+            this.message = message;
+            return;
+        }
+
+        if (mMessage.getVisibility() == View.GONE) {
+            mMessage.setVisibility(View.VISIBLE);
+        }
+        mMessage.setText(message);
     }
 
     @Override
     public void dismiss() {
         super.dismiss();
-        mHandler.removeCallbacksAndMessages(null);
-    }
-
-    public static class Builder {
-        private Context context;
-        private String message;
-        private boolean isShowMessage = true;
-        private boolean isCancelable = false;
-        private boolean isCancelOutside = false;
-        private boolean isTimeOut = false;
-        private long timeout = 0;
-
-        public Builder setMessage(String message) {
-            this.message = message;
-            return this;
-        }
-
-        public Builder setShowMessage(boolean isShowMessage) {
-            this.isShowMessage = isShowMessage;
-            return this;
-        }
-
-        public Builder setCancelable(boolean isCancelable) {
-            this.isCancelable = isCancelable;
-            return this;
-        }
-
-        public Builder setCancelOutside(boolean isCancelOutside) {
-            this.isCancelOutside = isCancelOutside;
-            return this;
-        }
-
-        public Builder setTimeOut(long timeout) {
-            this.isTimeOut = true;
-            this.timeout = timeout;
-            return this;
-        }
-
-        public Builder(Context context) {
-            this.context = context;
-        }
-
-        public LoadingDailog create() {
-            LayoutInflater inflater = LayoutInflater.from(this.context);
-            View view = inflater.inflate(R.layout.loading_dialog, (ViewGroup) null);
-            LoadingDailog loadingDailog = new LoadingDailog(this.context, R.style.LoadingDialogStyle);
-            TextView msgText = view.findViewById(R.id.tipTextView);
-            if (this.isShowMessage) {
-                msgText.setText(this.message);
-            } else {
-                msgText.setVisibility(View.GONE);
-            }
-
-            loadingDailog.setContentView(view);
-            loadingDailog.setCancelable(this.isCancelable);
-            loadingDailog.setCanceledOnTouchOutside(this.isCancelOutside);
-            if (isTimeOut)
-                loadingDailog.setTimeOut(timeout);
-            return loadingDailog;
-        }
+        if (isTimeOut)
+            mHandler.removeCallbacksAndMessages(null);
     }
 }
