@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
                 dailog.setMessage("正在初始化...");
             }
         }, 2000);
-
     }
 
     private void showIntro() {
