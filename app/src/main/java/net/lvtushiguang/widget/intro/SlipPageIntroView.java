@@ -135,7 +135,6 @@ public class SlipPageIntroView extends RelativeLayout {
             LayoutInflater lf = LayoutInflater.from(mContext);
             View view = lf.inflate(R.layout.item_slippage_intro, null);
             ImageView img = view.findViewById(R.id.img_src);
-            img.setImageResource(resource);
             img.setImageBitmap(DecodeBitmap.decodeSampledBitmapFromResource(getResources(),
                     resource, getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics().heightPixels));
 
@@ -156,7 +155,6 @@ public class SlipPageIntroView extends RelativeLayout {
             LayoutInflater lf = LayoutInflater.from(mContext);
             View view = lf.inflate(R.layout.item_slippage_intro, null);
             ImageView img = view.findViewById(R.id.img_src);
-            img.setImageResource(resource);
             img.setImageBitmap(DecodeBitmap.decodeSampledBitmapFromResource(getResources(),
                     resource, getResources().getDisplayMetrics().widthPixels, getResources().getDisplayMetrics().heightPixels));
 
